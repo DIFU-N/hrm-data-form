@@ -11,7 +11,7 @@ export const fetchCharacters = createAsyncThunk('staff/fetchCharacters', async (
     return await axios
     .get('http://127.0.0.1:5173/src/data/MOCK_DATA.json')
     .then((response) =>  {
-        console.log(response.data);
+        // console.log(response.data);
         return response.data.map((user) => user)
     })
 })
@@ -27,7 +27,7 @@ const staffSlice = createSlice({
         builder.addCase(fetchCharacters.fulfilled, (state, action) => {
             state.loading = false
             state.staffDetails = action.payload
-            console.log(action.payload);
+            // console.log(action.payload);
             state.error = ''
         })
         builder.addCase(fetchCharacters.rejected, (state, action) => {
