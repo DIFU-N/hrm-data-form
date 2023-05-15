@@ -28,8 +28,9 @@ const FormComp = () => {
     // fontFamily: 'Bebas Neue, cursive'
     fontFamily: "Barlow, sans-serif",
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, data) => {
     event.preventDefault();
+    console.log(data);
   };
   const onSubmit = methods.handleSubmit(handleSubmit);
   return (
@@ -45,14 +46,14 @@ const FormComp = () => {
             style={divStyle1}
             className="rounded-md flex lg:h-[400px] flex-col gap-y-5 lg:gap-y-2 shadow-sm -space-y-px"
           >
-            <Input {...name_validation} />
-            <Input {...email_validation} />
+            <Input {...name_validation} value={'okayhose'} />
+            <Input {...email_validation} value={'noask'} />
             <PhoneInputField
               {...cell_validation}
               control={control}
               validation={validationSchema}
             />
-            <Select {...gender_validation} />
+            <Select {...gender_validation} value={'Female'}/>
             <SelectDate {...date_validation} />
           </div>
           <div>

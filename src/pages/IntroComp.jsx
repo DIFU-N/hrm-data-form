@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import FormComp from "../components/FormComp";
+import { setSelectedStaff } from "../app/staff";
 
 const IntroComp = () => {
   const customStyles = {
@@ -25,6 +26,7 @@ const IntroComp = () => {
   useEffect(() => {
     const staffInfo = staffDetailsRetrieved
       ? staffDetailsRetrieved.map((single) => ({
+          id: single.id,
           first_name: single.first_name,
           last_name: single.last_name,
           email: single.email,
@@ -39,6 +41,9 @@ const IntroComp = () => {
   const options = staffData.map((person) => ({
     value: person.id,
     label: person.first_name + " " + person.last_name,
+    first_name: person.first_name,
+    last_name: person.last_name,
+    id: person.id,
     gender: person.gender,
     email: person.email,
     department: person.department,
@@ -55,6 +60,10 @@ const IntroComp = () => {
     );
     setFilteredOptions(filtered);
   };
+  const selectedStaff = useSelector((state) => state.staff.selectedStaff)
+  const handleSelectChange = (selected) => {
+    dispatch(setSelectedStaff(selected))
+  }
   return (
     <div className="w-full items-center justify-center flex flex-col my-10">
       <select name="" id="" className="border-2">
@@ -64,7 +73,8 @@ const IntroComp = () => {
         options={filteredOptions ? filteredOptions : options}
         className="w-[400px] rounded-lg px-4 py-2 mb-4"
         placeholder="Search..."
-        // value={selectedOption}
+        value={selectedStaff}
+        onChange={handleSelectChange}
         onInputChange={handleInputChange}
         styles={customStyles}
       />

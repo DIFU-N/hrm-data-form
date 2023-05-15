@@ -1,15 +1,19 @@
 import {AnimatePresence} from 'framer-motion';
-import React from 'react';
+import React, { useState } from 'react';
 import {useFormContext} from 'react-hook-form';
 import {findInputError} from '../utils/FindInputError';
 import {IsFormInvalid} from '../utils/IsFormInvalid';
 import InputError from './InputError';
 
-const Input = ({label, type, id, placeholder, validation, name}) => {
+const Input = ({label, type, id, placeholder, validation, name, value}) => {
     const {
         register,
         formState: {errors},
       } = useFormContext();
+    const [valueChange, setValueChange] = useState(value)
+    const handleInputChange = (event) => {
+        setValueChange(event.target.value);
+    }
     const inputError = findInputError(errors, name);
     const isInvalid = IsFormInvalid(inputError);
     return (
@@ -34,6 +38,8 @@ const Input = ({label, type, id, placeholder, validation, name}) => {
                 className="w-full lg:p-2 p-5 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
                 placeholder={placeholder}
                 {...register(name, validation)}
+                value={valueChange}
+                onChange={handleInputChange}
             />
         </div>
     );

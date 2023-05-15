@@ -4,7 +4,8 @@ import axios from 'axios';
 const initialState = {
     loading: false,
     staffDetails: [],
-    error: ''
+    error: '',
+    selectedStaff: {}
 }
 
 export const fetchStaff = createAsyncThunk('staff/fetchStaff', async () => {
@@ -20,6 +21,17 @@ export const fetchStaff = createAsyncThunk('staff/fetchStaff', async () => {
 export const staffSlice = createSlice({
     name: 'staff',
     initialState,
+    reducers: {
+        setSelectedStaff: (state, action) => {
+           const {id, first_name, last_name, department, email, gender, location} = action.payload;
+           state.selectedStaff = {}
+           state.selectedStaff = {
+                ...state.selectedStaff,
+                [id]: {first_name, last_name, department, email, gender, location}
+           }
+           console.log(state.selectedStaff);
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchStaff.pending, state => {
             state.loading = true
@@ -39,5 +51,5 @@ export const staffSlice = createSlice({
     }
 });
 
-
 export default staffSlice.reducer;
+export const {setSelectedStaff} = staffSlice.actions;
