@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import staffReducer from "./staffSlice";
+import {staffSlice} from "./staff";
+
 
 const store = configureStore({
     reducer: {
-        staff: staffReducer,
+        staff: staffSlice.reducer,
     }
 })
 

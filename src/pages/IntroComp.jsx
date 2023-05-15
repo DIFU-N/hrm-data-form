@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import FormComp from "../components/FormComp";
 
 const IntroComp = () => {
   const customStyles = {
@@ -55,18 +56,19 @@ const IntroComp = () => {
     setFilteredOptions(filtered);
   };
   return (
-    <div>
-      <select name="" id="">
+    <div className="w-full items-center justify-center flex flex-col my-10">
+      <select name="" id="" className="border-2">
         <option value=""></option>
       </select>
       <Select
         options={filteredOptions ? filteredOptions : options}
-        className="w-full rounded-lg px-4 py-2 mb-4"
+        className="w-[400px] rounded-lg px-4 py-2 mb-4"
         placeholder="Search..."
         // value={selectedOption}
         onInputChange={handleInputChange}
         styles={customStyles}
       />
+      {<FormComp />}  
     </div>
   );
 };

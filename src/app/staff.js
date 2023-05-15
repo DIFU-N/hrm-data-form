@@ -7,7 +7,7 @@ const initialState = {
     error: ''
 }
 
-export const fetchCharacters = createAsyncThunk('staff/fetchCharacters', async () => {
+export const fetchStaff = createAsyncThunk('staff/fetchStaff', async () => {
     return await axios
     .get('http://127.0.0.1:5173/src/data/MOCK_DATA.json')
     .then((response) =>  {
@@ -17,20 +17,20 @@ export const fetchCharacters = createAsyncThunk('staff/fetchCharacters', async (
 })
 
 
-const staffSlice = createSlice({
+export const staffSlice = createSlice({
     name: 'staff',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(fetchCharacters.pending, state => {
+        builder.addCase(fetchStaff.pending, state => {
             state.loading = true
         })
-        builder.addCase(fetchCharacters.fulfilled, (state, action) => {
+        builder.addCase(fetchStaff.fulfilled, (state, action) => {
             state.loading = false
-            state.staffDetails = action.payload
-            // console.log(action.payload);
+            state.staffDetails = [...action.payload]
+            console.log(state.staffDetails);
             state.error = ''
         })
-        builder.addCase(fetchCharacters.rejected, (state, action) => {
+        builder.addCase(fetchStaff.rejected, (state, action) => {
             state.loading = false
             state.staffDetails = []
             console.log(action.error.message);
