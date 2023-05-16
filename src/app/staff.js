@@ -26,10 +26,9 @@ export const staffSlice = createSlice({
            const {id, first_name, last_name, department, email, gender, location} = action.payload;
            state.selectedStaff = {}
            state.selectedStaff = {
-                ...state.selectedStaff,
-                [id]: {first_name, last_name, department, email, gender, location}
+                id, first_name, last_name, department, email, gender, location
            }
-           console.log(state.selectedStaff);
+        //    console.log(state.selectedStaff);
         }
     },
     extraReducers: (builder) => {
@@ -39,7 +38,7 @@ export const staffSlice = createSlice({
         builder.addCase(fetchStaff.fulfilled, (state, action) => {
             state.loading = false
             state.staffDetails = [...action.payload]
-            console.log(state.staffDetails);
+            // console.log(state.staffDetails);
             state.error = ''
         })
         builder.addCase(fetchStaff.rejected, (state, action) => {

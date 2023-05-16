@@ -21,15 +21,16 @@ const FormComp = () => {
   const formOptions = { resolver: yupResolver(validationSchema) };
   const methods = useForm(formOptions);
   const { control } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
+      resolver: yupResolver(validationSchema),
+    });
+  const selectedStaff = useSelector((state) => state.staff.selectedStaff)
+  // console.log(selectedStaff.email);
   const divStyle1 = {
     // fontFamily: "Anton, sans-serif",
     // fontFamily: 'Bebas Neue, cursive'
     fontFamily: "Barlow, sans-serif",
   };
-  const handleSubmit = (event, data) => {
-    event.preventDefault();
+  const handleSubmit = (data) => {
     console.log(data);
   };
   const onSubmit = methods.handleSubmit(handleSubmit);
@@ -41,19 +42,19 @@ const FormComp = () => {
           noValidate
           autoComplete="off"
           className="container"
-        >
+          >
           <div
             style={divStyle1}
             className="rounded-md flex lg:h-[400px] flex-col gap-y-5 lg:gap-y-2 shadow-sm -space-y-px"
           >
-            <Input {...name_validation} value={'okayhose'} />
-            <Input {...email_validation} value={'noask'} />
+            <Input {...name_validation} value={selectedStaff ? selectedStaff.first_name : ''} />
+            <Input {...email_validation} value={selectedStaff ? selectedStaff.email : ''} />
             <PhoneInputField
               {...cell_validation}
               control={control}
               validation={validationSchema}
             />
-            <Select {...gender_validation} value={'Female'}/>
+            <Select {...gender_validation} value={selectedStaff ? selectedStaff.gender : ''}/>
             <SelectDate {...date_validation} />
           </div>
           <div>
