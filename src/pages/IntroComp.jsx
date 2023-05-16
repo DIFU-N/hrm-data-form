@@ -19,26 +19,19 @@ const IntroComp = () => {
     }),
   };
   const dispatch = useDispatch();
-  const staffDetailsRetrieved = useSelector(
-    (state) => state.staff.staffDetails
-  );
-  const [staffData, setStaffData] = useState([]);
-  useEffect(() => {
-    const staffInfo = staffDetailsRetrieved
-      ? staffDetailsRetrieved.map((single) => ({
-          id: single.id,
-          first_name: single.first_name,
-          last_name: single.last_name,
-          email: single.email,
-          gender: single.gender,
-          location: single.location,
-          department: single.department,
-        }))
-      : [];
-    setStaffData(staffInfo);
-  }, [staffDetailsRetrieved]);
+  const staffDetailsSelector = useSelector((state) =>
+  state.staff.staffDetails.map((single) => ({
+    id: single.id,
+    first_name: single.first_name,
+    last_name: single.last_name,
+    email: single.email,
+    gender: single.gender,
+    location: single.location,
+    department: single.department,
+  }))
+);
 
-  const options = staffData.map((person) => ({
+  const options = staffDetailsSelector.map((person) => ({
     value: person.id,
     label: person.first_name + " " + person.last_name,
     first_name: person.first_name,
@@ -63,17 +56,15 @@ const IntroComp = () => {
   const selectedStaff = useSelector((state) => state.staff.selectedStaff)
   const handleSelectChange = (selected) => {
     dispatch(setSelectedStaff(selected))
+    console.log(selectedStaff)
   }
   return (
     <div className="w-full items-center justify-center flex flex-col my-10">
-      <select name="" id="" className="border-2">
-        <option value=""></option>
-      </select>
       <Select
         options={filteredOptions ? filteredOptions : options}
         className="w-[400px] rounded-lg px-4 py-2 mb-4"
         placeholder="Search..."
-        value={selectedStaff}
+        // value={selectedStaff}
         onChange={handleSelectChange}
         onInputChange={handleInputChange}
         styles={customStyles}
