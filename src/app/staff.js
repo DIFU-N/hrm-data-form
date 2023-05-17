@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const GENHIVE_API_TOKEN = import.meta.env.VITE_GENHIVE_API_TOKEN
 const initialState = {
     loading: false,
     staffDetails: [],
@@ -10,9 +11,14 @@ const initialState = {
 
 export const fetchStaff = createAsyncThunk('staff/fetchStaff', async () => {
     return await axios
-    .get('http://127.0.0.1:5173/src/data/MOCK_DATA.json')
+    .get('https://genhive.onrender.com/staff', {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${GENHIVE_API_TOKEN}`
+      }
+    })
     .then((response) =>  {
-        // console.log(response.data);
+        console.log(response.data);
         return response.data.map((user) => user)
     })
 })
@@ -38,7 +44,7 @@ export const staffSlice = createSlice({
         builder.addCase(fetchStaff.fulfilled, (state, action) => {
             state.loading = false
             state.staffDetails = [...action.payload]
-            // console.log(state.staffDetails);
+            console.log(state.staffDetails);
             state.error = ''
         })
         builder.addCase(fetchStaff.rejected, (state, action) => {
