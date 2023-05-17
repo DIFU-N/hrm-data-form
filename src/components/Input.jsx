@@ -13,7 +13,7 @@ const Input = ({ label, type, id, placeholder, validation, name, value }) => {
   const [fieldValue, setFieldValue] = useState("");
   useEffect(() => {
     setFieldValue(value || "");
-    // console.log(value);
+    console.log(value);
   }, [value]);
 
   const handleInputChange = (event) => {

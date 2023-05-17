@@ -17,9 +17,16 @@ const Select = React.memo(
     const disabledOption = document.getElementById("disabledOption");
     //   console.log(value);
     const [fieldValue, setFieldValue] = useState("");
+    //   useEffect(() => {
+    //     if (value) {
+    //       setFieldValue(value);
+    //     } else {
+    //       setFieldValue('');
+    //     }
+    //   }, [value]);
     useEffect(() => {
       setFieldValue(value || "");
-      // console.log(value);
+      console.log(value);
     }, [value]);
   
     const handleSelectChange = (event) => {

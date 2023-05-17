@@ -32,9 +32,10 @@ export const staffSlice = createSlice({
            const {id, first_name, last_name, department, email, gender, location} = action.payload;
            state.selectedStaff = {}
            state.selectedStaff = {
-                id, first_name, last_name, department, email, gender, location
+                ...state.selectedStaff,
+                [id]: {first_name, last_name, department, email, gender, location}
            }
-        //    console.log(state.selectedStaff);
+           console.log(state.selectedStaff);
         }
     },
     extraReducers: (builder) => {
