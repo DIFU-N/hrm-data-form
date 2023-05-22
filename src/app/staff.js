@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const GENHIVE_API_TOKEN = import.meta.env.VITE_GENHIVE_API_TOKEN
+console.log(GENHIVE_API_TOKEN);
 const initialState = {
     loading: false,
     staffDetails: [],
@@ -9,17 +10,34 @@ const initialState = {
     selectedStaff: {}
 }
 
+export const login = async () => {
+    const loginData = {
+      staffId: 1,
+      password: "Chukwu",
+      adminPassword: "123",
+    };
+  
+    const response = await axios.post('https://genhive.onrender.com/auth/login', loginData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
+    return response.data.data.token;
+  }
+
 export const fetchStaff = createAsyncThunk('staff/fetchStaff', async () => {
+    const token = await login();
     return await axios
     .get('https://genhive.onrender.com/staff', {
       headers: {
         'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${GENHIVE_API_TOKEN}`
+        'Authorization': `Bearer ${token}`
       }
     })
     .then((response) =>  {
-        console.log(response.data);
-        return response.data.map((user) => user)
+        console.log(response.data.data);
+        return response.data.data.map((user) => user)
     })
 })
 
