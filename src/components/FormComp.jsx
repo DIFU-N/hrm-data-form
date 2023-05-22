@@ -2,7 +2,9 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../components/Input";
 import {
+  address_validation,
   cell_validation,
+  cug_validation,
   date_validation,
   department_validation,
   email_validation,
@@ -59,15 +61,28 @@ const FormComp = () => {
               <Input {...lastNameValidation} value={selectedStaff.lastName} />
             </div>
             <Input {...email_validation} value={selectedStaff.email} />
+            <Input {...address_validation} value={selectedStaff.address} />
+            <SelectDate {...date_validation} value={selectedStaff.dob} />
             <PhoneInputField
               {...cell_validation}
               control={control}
               value={selectedStaff.phone1}
               validation={validationSchema}
             />
+            <PhoneInputField
+              {...cell_validation}
+              control={control}
+              value={selectedStaff.phone2}
+              validation={validationSchema}
+            />
             <Select {...gender_validation} value={selectedStaff.gender} />
             <Select {...department_validation} options={deptList} value={selectedStaff.department} />
-            <SelectDate {...date_validation} value={selectedStaff.dob} />
+            <PhoneInputField
+              {...cug_validation}
+              control={control}
+              value={selectedStaff.cug}
+              validation={validationSchema}
+            />
           </div>
           <div>
             <button

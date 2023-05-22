@@ -31,6 +31,8 @@ const IntroComp = () => {
       dob: single.dob,
       phone1: single.phone1,
       phone2: single.phone2,
+      address: single.address,
+      cug: single.cug,
     }))
   );
 
@@ -47,6 +49,8 @@ const IntroComp = () => {
     dob: person.dob,
     phone1: person.phone1,
     phone2: person.phone2,
+    address: person.address,
+    cug: person.cug,
   }));
   const [inputValue, setInputValue] = useState("");
 

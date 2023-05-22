@@ -55,9 +55,32 @@ export const email_validation = {
     },
 };
 
+export const address_validation = {
+    name: 'address',
+    label: 'address',
+    type: 'address',
+    id: 'address',
+    placeholder: 'Enter Your Address',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+
+    },
+};
+
+export const cug_validation = {
+    name: 'cell',
+    label: 'CUG Line',
+    type: 'string',
+    id: 'cug',
+};
+
+
 export const cell_validation = {
     name: 'cell',
-    label: 'phone number',
+    label: 'person phone number',
     type: 'string',
     id: 'cell',
 };

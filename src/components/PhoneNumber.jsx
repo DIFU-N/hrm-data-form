@@ -19,7 +19,7 @@ const PhoneInputField = ({ name, label, validation, value }) => {
   const [fieldValue, setFieldValue] = useState("");
   useEffect(() => {
     setFieldValue(value || "");
-    console.log(value);
+    // console.log(value);
   }, [value]);
   return (
     <div className="flex flex-col w-full gap-2">
