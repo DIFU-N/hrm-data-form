@@ -28,6 +28,9 @@ const IntroComp = () => {
       gender: single.gender,
       location: single.location,
       department: single.department.name,
+      dob: single.dob,
+      phone1: single.phone1,
+      phone2: single.phone2,
     }))
   );
 
@@ -41,6 +44,9 @@ const IntroComp = () => {
     email: person.email,
     department: person.department,
     location: person.location,
+    dob: person.dob,
+    phone1: person.phone1,
+    phone2: person.phone2,
   }));
   const [inputValue, setInputValue] = useState("");
 

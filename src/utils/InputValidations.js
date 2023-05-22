@@ -88,8 +88,8 @@ export const department_validation = {
 };
 
 export const date_validation = {
-    name: 'birthday',
-    label: 'birthday',
+    name: 'date of birth',//lol it's taking name instead of label
+    label: 'Date Of Birth',
     id: 'birthday',
     validation: {
         required: {

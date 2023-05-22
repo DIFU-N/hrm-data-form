@@ -1,23 +1,26 @@
-import React from 'react';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
-import {Controller, useForm, useFormContext} from 'react-hook-form';
-import {AnimatePresence} from 'framer-motion';
-import {findInputError} from '../utils/FindInputError';
-import {IsFormInvalid} from '../utils/IsFormInvalid';
-import InputError from './InputError';
-import {useSelector} from 'react-redux';
+import React, { useEffect, useState } from "react";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { Controller, useForm, useFormContext } from "react-hook-form";
+import { AnimatePresence } from "framer-motion";
+import { findInputError } from "../utils/FindInputError";
+import { IsFormInvalid } from "../utils/IsFormInvalid";
+import InputError from "./InputError";
+import { useSelector } from "react-redux";
 
-
-const PhoneInputField = ({name, label, validation}) => {
-    const {
-        control,
-        register,
-        formState: {errors},
-    } = useFormContext();
-    const inputError = findInputError(errors, name);
-    const isInvalid = IsFormInvalid(inputError);
-
+const PhoneInputField = ({ name, label, validation, value }) => {
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const inputError = findInputError(errors, name);
+  const isInvalid = IsFormInvalid(inputError);
+  const [fieldValue, setFieldValue] = useState("");
+  useEffect(() => {
+    setFieldValue(value || "");
+    console.log(value);
+  }, [value]);
   return (
     <div className="flex flex-col w-full gap-2">
       <div className="flex justify-between">
@@ -37,14 +40,14 @@ const PhoneInputField = ({name, label, validation}) => {
         control={control}
         name={name}
         // rules={{ validate: validationSchema }}
-        render={({field}) => (
+        render={({ field }) => (
           <>
             <PhoneInput
-                {...register(name, validation)}
-            //   {...field}
-              value={field.value ? field.value : ''}
+              {...register(name, validation)}
+              //   {...field}
+              value={fieldValue}
               onChange={field.onChange}
-              countries={['NG']}
+              countries={["NG"]}
               defaultCountry="NG"
               id="phone-input"
               limitMaxLength={true}

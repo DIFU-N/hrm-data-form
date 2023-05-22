@@ -34,7 +34,7 @@ export const fetchDepartment = createAsyncThunk('departments/fetchDepartment', a
       }
     })
     .then((response) =>  {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         return response.data.data.map((user) => user.name)
     })
 })

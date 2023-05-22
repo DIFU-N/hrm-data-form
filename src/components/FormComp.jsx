@@ -39,7 +39,7 @@ const FormComp = () => {
   const deptList = useSelector((state) => state.department.departmentList);
   // console.log(deptList);
   const selectedStaff = useSelector((state) => state.staff.selectedStaff);
-  // console.log(selectedStaff);
+  console.log(selectedStaff);
   return (
     <div className="w-[400px]">
       <FormProvider {...methods}>
@@ -51,7 +51,7 @@ const FormComp = () => {
         >
           <div
             style={divStyle1}
-            className="rounded-md flex lg:h-[400px] flex-col gap-y-5 lg:gap-y-2 shadow-sm -space-y-px"
+            className="rounded-md flex flex-col gap-y-5 lg:gap-y-2 shadow-sm -space-y-px"
           >
             <div className="flex gap-3">
               <Input {...firstNameValidation} value={selectedStaff.firstName} />
@@ -62,17 +62,18 @@ const FormComp = () => {
             <PhoneInputField
               {...cell_validation}
               control={control}
+              value={selectedStaff.phone1}
               validation={validationSchema}
             />
             <Select {...gender_validation} value={selectedStaff.gender} />
             <Select {...department_validation} options={deptList} value={selectedStaff.department} />
-            <SelectDate {...date_validation} />
+            <SelectDate {...date_validation} value={selectedStaff.dob} />
           </div>
           <div>
             <button
               type="button"
               onClick={onSubmit}
-              className="group relative w-full flex justify-center my-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white
+              className="group bottom-0 relative w-full flex justify-center my-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white
                      bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
