@@ -1,9 +1,37 @@
-export const name_validation = {
-    name: 'name',
-    label: 'name',
+export const firstNameValidation = {
+    name: 'firstname',
+    label: 'first name',
     type: 'text',
-    id: 'name',
-    placeholder: 'Enter your Full Name',
+    id: 'firstName',
+    placeholder: 'First Name',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
+export const middleNameValidation = {
+    name: 'middlename',
+    label: 'middle name',
+    type: 'text',
+    id: 'midName',
+    placeholder: 'Middle Name',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
+export const lastNameValidation = {
+    name: 'lastname',
+    label: 'last name',
+    type: 'text',
+    id: 'lastName',
+    placeholder: 'Last Name',
     validation: {
         required: {
             value: true,
@@ -46,6 +74,8 @@ export const gender_validation = {
         },
     },
 };
+
+
 
 export const date_validation = {
     name: 'birthday',

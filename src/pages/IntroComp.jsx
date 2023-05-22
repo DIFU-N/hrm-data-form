@@ -20,22 +20,22 @@ const IntroComp = () => {
   };
   const dispatch = useDispatch();
   const staffDetailsSelector = useSelector((state) =>
-  state.staff.staffDetails.map((single) => ({
-    id: single.id,
-    first_name: single.first_name,
-    last_name: single.last_name,
-    email: single.email,
-    gender: single.gender,
-    location: single.location,
-    department: single.department,
-  }))
-);
+    state.staff.staffDetails.map((single) => ({
+      id: single.id,
+      firstName: single.firstName,
+      lastName: single.lastName,
+      email: single.email,
+      gender: single.gender,
+      location: single.location,
+      department: single.department.name,
+    }))
+  );
 
   const options = staffDetailsSelector.map((person) => ({
     value: person.id,
-    label: person.first_name + " " + person.last_name,
-    first_name: person.first_name,
-    last_name: person.last_name,
+    label: person.firstName + " " + person.lastName,
+    firstName: person.firstName,
+    lastName: person.lastName,
     id: person.id,
     gender: person.gender,
     email: person.email,

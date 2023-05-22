@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const GENHIVE_API_TOKEN = import.meta.env.VITE_GENHIVE_API_TOKEN
-console.log(GENHIVE_API_TOKEN);
 const initialState = {
     loading: false,
     staffDetails: [],
@@ -36,7 +34,7 @@ export const fetchStaff = createAsyncThunk('staff/fetchStaff', async () => {
       }
     })
     .then((response) =>  {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         return response.data.data.map((user) => user)
     })
 })
@@ -47,13 +45,13 @@ export const staffSlice = createSlice({
     initialState,
     reducers: {
         setSelectedStaff: (state, action) => {
-           const {id, first_name, last_name, department, email, gender, location} = action.payload;
+           const {id, firstName, lastName, department, email, gender, location} = action.payload;
            state.selectedStaff = {}
            state.selectedStaff = {
                 ...state.selectedStaff,
-                [id]: {first_name, last_name, department, email, gender, location}
+                id, firstName, lastName, department, email, gender, location
            }
-           console.log(state.selectedStaff);
+          //  console.log(state.selectedStaff);
         }
     },
     extraReducers: (builder) => {
