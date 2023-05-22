@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { fetchStaff } from './app/staff'
 import { useDispatch } from 'react-redux'
 import IntroComp from './pages/IntroComp'
+import { fetchDepartment } from './app/department'
 
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchStaff())
+    dispatch(fetchStaff());
+    dispatch(fetchDepartment());
   }, [])
   return (
     <>

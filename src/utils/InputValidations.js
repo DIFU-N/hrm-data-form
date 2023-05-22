@@ -75,7 +75,17 @@ export const gender_validation = {
     },
 };
 
-
+export const department_validation = {
+    name: 'department',
+    label: 'department',
+    id: 'department',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
 
 export const date_validation = {
     name: 'birthday',

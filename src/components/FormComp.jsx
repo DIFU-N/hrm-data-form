@@ -4,6 +4,7 @@ import Input from "../components/Input";
 import {
   cell_validation,
   date_validation,
+  department_validation,
   email_validation,
   firstNameValidation,
   gender_validation,
@@ -35,8 +36,10 @@ const FormComp = () => {
     console.log(data);
   };
   const onSubmit = methods.handleSubmit(handleSubmit);
+  const deptList = useSelector((state) => state.department.departmentList);
+  // console.log(deptList);
   const selectedStaff = useSelector((state) => state.staff.selectedStaff);
-  console.log(selectedStaff);
+  // console.log(selectedStaff);
   return (
     <div className="w-[400px]">
       <FormProvider {...methods}>
@@ -62,6 +65,7 @@ const FormComp = () => {
               validation={validationSchema}
             />
             <Select {...gender_validation} value={selectedStaff.gender} />
+            <Select {...department_validation} options={deptList} value={selectedStaff.department} />
             <SelectDate {...date_validation} />
           </div>
           <div>
