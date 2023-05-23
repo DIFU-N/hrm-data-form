@@ -6,7 +6,7 @@ import { findInputError } from "../utils/FindInputError";
 import { IsFormInvalid } from "../utils/IsFormInvalid";
 import InputError from "./InputError";
 
-const SelectDate = ({ name, id, validation, value }) => {
+const SelectDate = ({ label, name, id, validation, value }) => {
   const {
     control,
     register,
@@ -28,7 +28,7 @@ const SelectDate = ({ name, id, validation, value }) => {
     <div className="flex flex-col w-full gap-2">
       <div className="flex justify-between">
         <label htmlFor={id} className="font-semibold capitalize">
-          {name}
+          {label}
         </label>
         <AnimatePresence mode="wait" initial={false}>
           {isInvalid && (
