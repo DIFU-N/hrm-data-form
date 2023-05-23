@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const initialState = {
     loading: false,
@@ -39,17 +40,41 @@ export const fetchStaff = createAsyncThunk('staff/fetchStaff', async () => {
     })
 })
 
+// const staff = useSelector((state) => state.staff.selectedStaff)
+export const updateStaff = createAsyncThunk('staff/updateStaff', async (data, thunkAPI) => {
+  const {getState} = thunkAPI;
+  const state = getState();
+  const token = await login();
+  const staff = state.staff.selectedStaff;
+  console.log(staff);
+  const url = `https://genhive.onrender.com/staff/${staff.id}`;
+    return await axios.put(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      console.log('Update successful:', response.data);
+    })
+    .catch(error => {
+      console.error('Update failed:', error);
+    });
+})
+
+
 
 export const staffSlice = createSlice({
     name: 'staff',
     initialState,
     reducers: {
         setSelectedStaff: (state, action) => {
-           const {id, firstName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus} = action.payload;
+           const {id, firstName, lastName, middleName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus} = action.payload;
            state.selectedStaff = {}
            state.selectedStaff = {
                 ...state.selectedStaff,
-                id, firstName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus
+                id, firstName, lastName, middleName, email, gender, nationality, phone1
+                // id, firstName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus
            }
           //  console.log(state.selectedStaff);
         }
