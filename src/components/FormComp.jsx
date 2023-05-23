@@ -3,15 +3,21 @@ import { FormProvider, useForm } from "react-hook-form";
 import Input from "../components/Input";
 import {
   address_validation,
+  category_validation,
   cell_validation,
   cug_validation,
   date_validation,
   department_validation,
   email_validation,
+  employmentDateValidation,
+  employment_status_validation,
   firstNameValidation,
   gender_validation,
   lastNameValidation,
   middleNameValidation,
+  nationality_validation,
+  role_validation,
+  state_validation,
 } from "../utils/InputValidations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "../components/Select";
@@ -63,6 +69,8 @@ const FormComp = () => {
             <Input {...email_validation} value={selectedStaff.email} />
             <Input {...address_validation} value={selectedStaff.address} />
             <SelectDate {...date_validation} value={selectedStaff.dob} />
+            <Input {...nationality_validation} value={selectedStaff.nationality} />
+            <Input {...state_validation} value={selectedStaff.stateOfOrigin} />
             <PhoneInputField
               {...cell_validation}
               control={control}
@@ -76,11 +84,15 @@ const FormComp = () => {
               validation={validationSchema}
             />
             <Select {...gender_validation} value={selectedStaff.gender} />
+            <SelectDate {...employmentDateValidation} value={selectedStaff.employmentDate} />
+            <Select {...category_validation} value={selectedStaff.category} />
+            <Select {...employment_status_validation} value={selectedStaff.employmentStatus}/>
             <Select {...department_validation} options={deptList} value={selectedStaff.department} />
+            <Input {...role_validation} value={selectedStaff.role} />
             <PhoneInputField
               {...cug_validation}
               control={control}
-              value={selectedStaff.cug}
+              value={selectedStaff.cugLine}
               validation={validationSchema}
             />
           </div>

@@ -32,7 +32,13 @@ const IntroComp = () => {
       phone1: single.phone1,
       phone2: single.phone2,
       address: single.address,
-      cug: single.cug,
+      cugLine: single.cugLine,
+      nationality: single.nationality,
+      role: single.role,
+      employmentDate: single.employmentDate,
+      stateOfOrigin: single.state,
+      category: single.category,
+      employmentStatus: single.employmentStatus,
     }))
   );
 
@@ -50,7 +56,13 @@ const IntroComp = () => {
     phone1: person.phone1,
     phone2: person.phone2,
     address: person.address,
-    cug: person.cug,
+    cugLine: person.cugLine,
+    nationality: person.nationality,
+    role: person.role,
+    employmentDate: person.employmentDate,
+    stateOfOrigin: person.stateOfOrigin,
+    category: person.category,
+    employmentStatus: person.employmentStatus,
   }));
   const [inputValue, setInputValue] = useState("");
 

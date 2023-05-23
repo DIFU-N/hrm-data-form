@@ -3,7 +3,7 @@ export const firstNameValidation = {
     label: 'first name',
     type: 'text',
     id: 'firstName',
-    placeholder: 'First Name',
+    placeholder: 'Cannot leave blank',
     validation: {
         required: {
             value: true,
@@ -17,7 +17,7 @@ export const middleNameValidation = {
     label: 'middle name',
     type: 'text',
     id: 'midName',
-    placeholder: 'Middle Name',
+    placeholder: 'Cannot leave blank',
     validation: {
         required: {
             value: true,
@@ -31,7 +31,7 @@ export const lastNameValidation = {
     label: 'last name',
     type: 'text',
     id: 'lastName',
-    placeholder: 'Last Name',
+    placeholder: 'Cannot leave blank',
     validation: {
         required: {
             value: true,
@@ -45,7 +45,7 @@ export const email_validation = {
     label: 'email',
     type: 'email',
     id: 'email',
-    placeholder: 'Enter Your Email Address',
+    placeholder: 'Cannot leave blank',
     validation: {
         required: {
             value: true,
@@ -58,9 +58,54 @@ export const email_validation = {
 export const address_validation = {
     name: 'address',
     label: 'address',
-    type: 'address',
+    type: 'text',
     id: 'address',
-    placeholder: 'Enter Your Address',
+    placeholder: 'Cannot leave blank',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+
+    },
+};
+
+export const nationality_validation = {
+    name: 'nationality',
+    label: 'nationality',
+    type: 'text',
+    id: 'nationality',
+    placeholder: 'Cannot leave blank',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+
+    },
+};
+
+export const state_validation = {
+    name: 'state of origin',
+    label: 'state of origin',
+    type: 'text',
+    id: 'state-of-origin',
+    placeholder: 'Cannot leave blank',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+
+    },
+};
+
+export const role_validation = {
+    name: 'role',
+    label: 'role',
+    type: 'role',
+    id: 'role',
+    placeholder: 'Cannot leave blank',
     validation: {
         required: {
             value: true,
@@ -98,6 +143,33 @@ export const gender_validation = {
     },
 };
 
+export const category_validation = {
+    name: 'category',
+    label: 'category',
+    id: 'category',
+    options: ['Permanent', 'Contract'],
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
+
+export const employment_status_validation = {
+    name: 'employment status',
+    label: 'employment status',
+    id: 'employ-status',
+    options: ['Employed', 'Terminated', 'Absconded', 'Resigned', 'Redundancy', 'Retirement', 'Dismissal', 'Deceased', 'StandBy'],
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
 export const department_validation = {
     name: 'department',
     label: 'department',
@@ -114,6 +186,18 @@ export const date_validation = {
     name: 'date of birth',//lol it's taking name instead of label
     label: 'Date Of Birth',
     id: 'birthday',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
+export const employmentDateValidation = {
+    name: 'date of employment',//lol it's taking name instead of label
+    label: 'Date Of employment',
+    id: 'dateofemployment',
     validation: {
         required: {
             value: true,

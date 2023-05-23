@@ -45,11 +45,11 @@ export const staffSlice = createSlice({
     initialState,
     reducers: {
         setSelectedStaff: (state, action) => {
-           const {id, firstName, lastName, department, email, gender, location, dob, phone1, phone2, address, CUGLine, nationality, role, employmentDate, updatedAt, salary, catergory, SOG} = action.payload;
+           const {id, firstName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus} = action.payload;
            state.selectedStaff = {}
            state.selectedStaff = {
                 ...state.selectedStaff,
-                id, firstName, lastName, department, email, gender, location, dob, phone1, phone2, address, CUGLine, nationality, role, employmentDate, updatedAt, salary, catergory, SOG
+                id, firstName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus
            }
           //  console.log(state.selectedStaff);
         }
