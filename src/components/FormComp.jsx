@@ -42,18 +42,45 @@ const FormComp = () => {
     fontFamily: "Barlow, sans-serif",
   };
   const selectedStaff = useSelector((state) => state.staff.selectedStaff);
-  const submitForm = async (data) => {
-    console.log('asdas');
+  const submitForm = ({ data }) => {
     console.log(data);
-    dispatch(updateStaff(selectedStaff, data))
+    const { id, firstName, lastName, middleName, email, gender, dob, phone1, phone2, address, nationality, employmentDate, state, category } = data || {};
+  
+    const cleanedNumber = (phone1 || null).replace(/^0?\s*|\s*/g, null);
+  const phoneNumber = (phone1 || null).startsWith("+234") ? phone1 : "+234" + cleanedNumber;
+  const editedNumber = (phoneNumber || null).replace(/^(\+234)|\s*/g, null);
+  const textableNumber = "0" + editedNumber;
+  
+    const updatedData = {
+      id: id || null,
+      firstName: firstName || null,
+      lastName: lastName ||  null,
+      middleName: middleName ||  null,
+      email: email ||  null,
+      gender: gender ||  null,
+      // location: location ||  null,
+      // dob: dob ||  null,
+      phone1: textableNumber ||  null,
+      phone2: phone2 ||  null,
+      address: address ||  null,
+      // cugLine: cugLine ||  null,
+      nationality: nationality ||  null,
+      // employmentDate: employmentDate ||  null,
+      state: state ||  null,
+      category: category ||  null
+    };
+  
+    console.log('Form data:', updatedData);
+    dispatch(updateStaff(updatedData));
   };
+  
   // const onSubmit = () => methods.handleSubmit(submitForm);
   const deptList = useSelector((state) => state.department.departmentList);
   return (
     <div className="w-[400px]">
       <FormProvider {...methods}>
         <form
-          onSubmit={methods.handleSubmit(submitForm)}
+          onSubmit={methods.handleSubmit((data) => submitForm({data}))}
           noValidate
           autoComplete="off"
           className="container"
@@ -71,7 +98,7 @@ const FormComp = () => {
             <Input {...address_validation} value={selectedStaff.address} />
             <SelectDate {...date_validation} value={selectedStaff.dob} />
             <Input {...nationality_validation} value={selectedStaff.nationality} />
-            <Input {...state_validation} value={selectedStaff.stateOfOrigin} />
+            <Input {...state_validation} value={selectedStaff.state} />
             <PhoneInputField
               {...cell_validation}
               control={control}
@@ -87,9 +114,9 @@ const FormComp = () => {
             <Select {...gender_validation} value={selectedStaff.gender} />
             <SelectDate {...employmentDateValidation} value={selectedStaff.employmentDate} />
             <Select {...category_validation} value={selectedStaff.category} />
-            <Select {...employment_status_validation} value={selectedStaff.employmentStatus}/>
-            <Select {...department_validation} options={deptList} value={selectedStaff.department} />
-            <Input {...role_validation} value={selectedStaff.role} />
+            {/* <Select {...employment_status_validation} value={selectedStaff.employmentStatus}/> */}
+            {/* <Select {...department_validation} options={deptList} value={selectedStaff.department} /> */}
+            {/* <Input {...role_validation} value={selectedStaff.role} /> */}
             {/* <PhoneInputField
               {...cug_validation}
               control={control}

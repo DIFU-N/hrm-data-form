@@ -32,13 +32,13 @@ const numberExists = (message = "Phone Number already exists") => {
 };
 
 export const validationSchema = Yup.object().shape({
-  checkEmail: Yup.boolean(),
-  // email: emailExists().required("Email is required").email("Email is invalid"),
-  email: Yup.string().required("Email is required").email("Email is invalid"),
-  name: Yup.string().required("Name is required"),
-  cell: Yup.string().required("Phone Number is required"),
-  // cell: numberExists().required("Phone Number is required"),
-  // .matches(/^(?:(\+234)|0)?([7-9][01]\d{8})$/, 'Invalid phone number format'),
-  gender: Yup.string().required("Gender is required"),
-  birthday: Yup.string().required("Birthday is required"),
+  // checkEmail: Yup.boolean(),
+  // // email: emailExists().required("Email is required").email("Email is invalid"),
+  // email: Yup.string().required("Email is required").email("Email is invalid"),
+  // name: Yup.string().required("Name is required"),
+  // cell: Yup.string().required("Phone Number is required"),
+  // // cell: numberExists().required("Phone Number is required"),
+  // // .matches(/^(?:(\+234)|0)?([7-9][01]\d{8})$/, 'Invalid phone number format'),
+  // gender: Yup.string().required("Gender is required"),
+  // birthday: Yup.string().required("Birthday is required"),
 });

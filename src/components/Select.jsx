@@ -7,7 +7,7 @@ import { AnimatePresence } from "framer-motion";
 
 
 const Select = React.memo(
-  ({ options, name, id, validation, value, ...rest }) => {
+  ({ options, name, label, id, validation, value, ...rest }) => {
     const {
       register,
       formState: { errors },
@@ -36,7 +36,7 @@ const Select = React.memo(
       <div className="flex flex-col w-full gap-2">
         <div className="flex justify-between">
           <label htmlFor={id} className="font-semibold capitalize">
-            {name}
+            {label}
           </label>
           <AnimatePresence mode="wait" initial={false}>
             {isInvalid && (

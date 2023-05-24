@@ -1,5 +1,5 @@
 export const firstNameValidation = {
-    name: 'firstname',
+    name: 'firstName',
     label: 'first name',
     type: 'text',
     id: 'firstName',
@@ -13,7 +13,7 @@ export const firstNameValidation = {
 };
 
 export const middleNameValidation = {
-    name: 'middlename',
+    name: 'middleName',
     label: 'middle name',
     type: 'text',
     id: 'midName',
@@ -27,7 +27,7 @@ export const middleNameValidation = {
 };
 
 export const lastNameValidation = {
-    name: 'lastname',
+    name: 'lastName',
     label: 'last name',
     type: 'text',
     id: 'lastName',
@@ -86,7 +86,7 @@ export const nationality_validation = {
 };
 
 export const state_validation = {
-    name: 'state of origin',
+    name: 'state',
     label: 'state of origin',
     type: 'text',
     id: 'state-of-origin',
@@ -116,7 +116,7 @@ export const role_validation = {
 };
 
 export const cug_validation = {
-    name: 'cell',
+    name: 'CUGLine',
     label: 'CUG Line',
     type: 'string',
     id: 'cug',
@@ -124,7 +124,7 @@ export const cug_validation = {
 
 
 export const cell_validation = {
-    name: 'cell',
+    name: 'phone1',
     label: 'person phone number',
     type: 'string',
     id: 'cell',
@@ -158,7 +158,7 @@ export const category_validation = {
 
 
 export const employment_status_validation = {
-    name: 'employment status',
+    name: 'employmentStatus',
     label: 'employment status',
     id: 'employ-status',
     options: ['Employed', 'Terminated', 'Absconded', 'Resigned', 'Redundancy', 'Retirement', 'Dismissal', 'Deceased', 'StandBy'],
@@ -183,7 +183,7 @@ export const department_validation = {
 };
 
 export const date_validation = {
-    name: 'date of birth',//lol it's taking name instead of label
+    name: 'dob',//lol it's taking name instead of label
     label: 'Date Of Birth',
     id: 'birthday',
     validation: {
@@ -195,7 +195,7 @@ export const date_validation = {
 };
 
 export const employmentDateValidation = {
-    name: 'date of employment',//lol it's taking name instead of label
+    name: 'employmentDate',//lol it's taking name instead of label
     label: 'Date Of employment',
     id: 'dateofemployment',
     validation: {

@@ -24,21 +24,31 @@ const IntroComp = () => {
       id: single.id,
       firstName: single.firstName,
       lastName: single.lastName,
+      middleName: single.middleName,
       email: single.email,
       gender: single.gender,
       location: single.location,
-      department: single.department.name,
+      department: {
+        name: single.department.name,
+        id: single.department.id,
+        division: [{
+          name: single.department.division[0].name
+        }],
+        divisionId: [...single.department.divisionId[0]],
+        createdAt: single.department.createdAt,
+        updatedAt: single.department.updatedAt,
+      },
       dob: single.dob,
       phone1: single.phone1,
       phone2: single.phone2,
       address: single.address,
       cugLine: single.cugLine,
       nationality: single.nationality,
-      role: single.role,
+      // role: single.role,
       employmentDate: single.employmentDate,
-      stateOfOrigin: single.state,
+      state: single.state,
       category: single.category,
-      employmentStatus: single.employmentStatus,
+      // employmentStatus: single.employmentStatus,
     }))
   );
 
@@ -47,10 +57,20 @@ const IntroComp = () => {
     label: person.firstName + " " + person.lastName,
     firstName: person.firstName,
     lastName: person.lastName,
+    middleName: person.middleName,
     id: person.id,
     gender: person.gender,
     email: person.email,
-    department: person.department,
+    department: {
+      name: person.department.name,
+      id: person.department.id,
+      division: [{
+        name: person.department.division[0].name
+      }],
+      divisionId: [person.department.divisionId[0]],
+      createdAt: person.department.createdAt,
+      updatedAt: person.department.updatedAt,
+    },
     location: person.location,
     dob: person.dob,
     phone1: person.phone1,
@@ -58,11 +78,11 @@ const IntroComp = () => {
     address: person.address,
     cugLine: person.cugLine,
     nationality: person.nationality,
-    role: person.role,
+    // role: person.role,
     employmentDate: person.employmentDate,
-    stateOfOrigin: person.stateOfOrigin,
+    state: person.stateOfOrigin,
     category: person.category,
-    employmentStatus: person.employmentStatus,
+    // employmentStatus: person.employmentStatus,
   }));
   const [inputValue, setInputValue] = useState("");
 
