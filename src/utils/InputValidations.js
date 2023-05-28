@@ -111,7 +111,6 @@ export const role_validation = {
             value: true,
             message: 'required',
         },
-
     },
 };
 
@@ -126,8 +125,15 @@ export const cug_validation = {
 export const cell_validation = {
     name: 'phone1',
     label: 'person phone number',
-    type: 'string',
+    type: 'cell',
     id: 'cell',
+    placeholder: 'Cannot leave blank',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
 };
 
 export const gender_validation = {

@@ -8,7 +8,7 @@ import { IsFormInvalid } from "../utils/IsFormInvalid";
 import InputError from "./InputError";
 import { useSelector } from "react-redux";
 
-const PhoneInputField = ({ name, label, validation, value }) => {
+const PhoneInputField = ({ name, label, validation, value, id, type, placeholder }) => {
   const {
     control,
     register,
@@ -19,8 +19,12 @@ const PhoneInputField = ({ name, label, validation, value }) => {
   const [fieldValue, setFieldValue] = useState("");
   useEffect(() => {
     setFieldValue(value || "");
-    // console.log(value);
+    console.log(value);
   }, [value]);
+
+  const handleInputChange = (event) => {
+    setFieldValue(event.target.value);
+  };
   return (
     <div className="flex flex-col w-full gap-2">
       <div className="flex justify-between">
@@ -42,7 +46,7 @@ const PhoneInputField = ({ name, label, validation, value }) => {
         // rules={{ validate: validationSchema }}
         render={({ field }) => (
           <>
-            <PhoneInput
+            {/* <PhoneInput
               {...register(name, validation)}
               //   {...field}
               value={fieldValue}
@@ -52,6 +56,16 @@ const PhoneInputField = ({ name, label, validation, value }) => {
               id="phone-input"
               limitMaxLength={true}
               className="w-full p-5 lg:p-2 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
+            /> */}
+            <input
+              name={name}
+              id={id}
+              type={type}
+              className="w-full lg:p-2 p-5 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
+              placeholder={placeholder}
+              {...register(name, validation)}
+              value={fieldValue}
+              onChange={handleInputChange}
             />
           </>
         )}

@@ -8,34 +8,6 @@ const initialState = {
     staffDetails: [],
     error: '',
     selectedStaff: {},
-    post: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      middleName: '',
-      email: '',
-      gender: '',
-      // location: '',
-      department: {
-        name: '',
-        id: '',
-        division: [],
-        divisionId: [],
-        createdAt: '',
-        updatedAt: '',
-      },
-      dob: '',
-      phone1: '',
-      phone2: '',
-      address: '',
-      // cugLine: '',
-      nationality: '',
-      // role: single.role,
-      employmentDate: '',
-      state: '',
-      category: '',
-      // employmentStatus: single.employmentStatus,
-    }
 }
 
 export const login = async () => {
@@ -43,6 +15,7 @@ export const login = async () => {
       staffId: 1,
       password: "Chukwu",
       adminPassword: "123",
+      fcmToken: 'cAK4WtO9pZk:APA91bH5ddGFcRExO3lrKv6f_PwS7SK5jNzi92vlbfT9IF5EoZ-qN6zI9sPQWNYG5hI-1dUk-WjZqX7K22cG7Y2C0OZ9r7zv_LiBB3qHZW4k2DQa0aDfMn0OaR8iCmX2aWb4p5p86d1r',
     };
   
     const response = await axios.post('https://genhive.onrender.com/auth/login', loginData, {
@@ -75,7 +48,6 @@ export const updateStaff = createAsyncThunk('staff/updateStaff', async (data, th
   const state = getState();
   const token = await login();
   const staff = state.staff.selectedStaff;
-  const postToBeUpdated = state.staff.post;
   const post = { ...staff, ...data }
   console.log(staff);
   const url = `https://genhive.onrender.com/staff/${staff.id}`;
@@ -105,8 +77,8 @@ export const staffSlice = createSlice({
            state.selectedStaff = {}
            state.selectedStaff = {
                 ...state.selectedStaff,
-                id, firstName, lastName, middleName, email, gender, nationality, phone1
-                // id, firstName, middleName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus
+                // id, firstName, lastName, middleName, email, gender, nationality, phone1
+                id, firstName, middleName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus
            }
           //  console.log(state.selectedStaff);
         }

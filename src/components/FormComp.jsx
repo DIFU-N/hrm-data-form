@@ -44,13 +44,20 @@ const FormComp = () => {
   const selectedStaff = useSelector((state) => state.staff.selectedStaff);
   const submitForm = ({ data }) => {
     console.log(data);
-    const { id, firstName, lastName, middleName, email, gender, dob, phone1, phone2, address, nationality, employmentDate, state, category } = data || {};
-  
-    const cleanedNumber = (phone1 || null).replace(/^0?\s*|\s*/g, null);
-  const phoneNumber = (phone1 || null).startsWith("+234") ? phone1 : "+234" + cleanedNumber;
-  const editedNumber = (phoneNumber || null).replace(/^(\+234)|\s*/g, null);
-  const textableNumber = "0" + editedNumber;
-  
+    const { id, firstName, lastName, middleName, departmentName, departmentId, departmentDivisionName, departmentDivisionId, departmentCreatedAt, departmentUpdatedAt, email, gender, dob, phone1, phone2, address, nationality, employmentDate, state, category } = data || {};
+    console.log('this is' +phone1);
+    const cleanedNumber = (phone1).replace(/^0?\s*|\s*/g, "");
+    const phoneNumber = (phone1).startsWith("+234") ? phone1 : "+234" + cleanedNumber;
+    const editedNumber = (phoneNumber).replace(/^(\+234)|\s*/g, "");
+    editedNumber ? editedNumber : null
+    const textableNumber = null;
+    if (editedNumber) {
+      return textableNumber = "0" + editedNumber;
+    }
+    // if(phone1 || phone2) {
+    //   return textableNumber;
+    // }
+    const parsedDob = dob ? new Date(dob) : null;
     const updatedData = {
       id: id || null,
       firstName: firstName || null,
@@ -59,7 +66,7 @@ const FormComp = () => {
       email: email ||  null,
       gender: gender ||  null,
       // location: location ||  null,
-      // dob: dob ||  null,
+      dob: parsedDob ||  null,
       phone1: textableNumber ||  null,
       phone2: phone2 ||  null,
       address: address ||  null,
@@ -67,9 +74,18 @@ const FormComp = () => {
       nationality: nationality ||  null,
       // employmentDate: employmentDate ||  null,
       state: state ||  null,
-      category: category ||  null
+      category: category ||  null,
+      department: {
+        name: departmentName,
+        id: departmentId,
+        division: [{
+          name: departmentDivisionName,
+        }],
+        divisionId: [departmentDivisionId],
+        createdAt: departmentCreatedAt,
+        updatedAt: departmentUpdatedAt,
+      } || null,
     };
-  
     console.log('Form data:', updatedData);
     dispatch(updateStaff(updatedData));
   };
@@ -91,7 +107,7 @@ const FormComp = () => {
           >
             <div className="flex gap-3">
               <Input {...firstNameValidation} value={selectedStaff.firstName} />
-              <Input {...middleNameValidation} value={selectedStaff.lastName} />
+              <Input {...middleNameValidation} value={selectedStaff.middleName} />
               <Input {...lastNameValidation} value={selectedStaff.lastName} />
             </div>
             <Input {...email_validation} value={selectedStaff.email} />
@@ -113,7 +129,7 @@ const FormComp = () => {
             /> */}
             <Select {...gender_validation} value={selectedStaff.gender} />
             <SelectDate {...employmentDateValidation} value={selectedStaff.employmentDate} />
-            <Select {...category_validation} value={selectedStaff.category} />
+            {/* <Select {...category_validation} value={selectedStaff.category} /> */}
             {/* <Select {...employment_status_validation} value={selectedStaff.employmentStatus}/> */}
             {/* <Select {...department_validation} options={deptList} value={selectedStaff.department} /> */}
             {/* <Input {...role_validation} value={selectedStaff.role} /> */}

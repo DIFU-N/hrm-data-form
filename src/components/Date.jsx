@@ -1,6 +1,5 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import ReactDatePicker from "react-datepicker";
 import { Controller, useFormContext } from "react-hook-form";
 import { findInputError } from "../utils/FindInputError";
 import { IsFormInvalid } from "../utils/IsFormInvalid";
@@ -17,10 +16,14 @@ const SelectDate = ({ label, name, id, validation, value }) => {
   useEffect(() => {
     if (value) {
       const date = new Date(value);
-      setFormattedDate(date.toISOString().split('T')[0]);
+      setFormattedDate(date.toISOString().split("T")[0]);
     }
   }, [value]);
 
+  const handleInputChange = (event) => {
+    const selectedDate = event.target.value;
+    setFormattedDate(selectedDate);
+  };
 
   const inputError = findInputError(errors, name);
   const isInvalid = IsFormInvalid(inputError);
@@ -45,10 +48,8 @@ const SelectDate = ({ label, name, id, validation, value }) => {
           type="date"
           id="birthday"
           name="birthday"
-
-          // onFocus={this.showPicker()}
-          value={formattedDate || ""}
-          onClick={(e) => e.target.focus()}
+          value={formattedDate}
+          onInput={handleInputChange}
           {...register(name, validation)}
         />
       </div>
