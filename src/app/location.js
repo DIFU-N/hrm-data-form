@@ -10,8 +10,8 @@ const initialState = {
 
 export const login = async () => {
     const loginData = {
-      staffId: 1,
-      password: "Chukwu",
+      staffId: 15522,
+      password: "hussein",
       adminPassword: "123",
     };
   
@@ -40,9 +40,20 @@ export const fetchLocation = createAsyncThunk('locations/fetchLocation', async (
 })
 
 
-export const locationSlice = createSlice({
+export const localeSlice = createSlice({
     name: 'location',
     initialState,
+    reducers: {
+        setSelectedLocation: (state, action) => {
+           const {id, firstName, lastName, department, division, email, gender, location} = action.payload;
+           state.selectedLocation = {}
+           state.selectedLocation = {
+                ...state.selectedLocation,
+                id, firstName, lastName, department, division, email, gender, location
+           }
+        //    console.log(state.selectedLocation);
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchLocation.pending, state => {
             state.loading = true
@@ -62,4 +73,5 @@ export const locationSlice = createSlice({
     }
 });
 
-export default locationSlice.reducer;
+export default localeSlice.reducer;
+export const {setSelectedLocation} = localeSlice.actions;
