@@ -26,6 +26,17 @@ export const login = async () => {
 
 export const fetchGeoLocation = createAsyncThunk('locations/fetchGeoLocation', async () => {
     const token = await login();
+    // return await axios
+    // .get('https://genhive.onrender.com/geoLocation', {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //     'Authorization': `Bearer ${token}`
+    //   }
+    // })
+    // .then((response) =>  {
+    //     console.log(response.data.data);
+    //     return response.data.data.map((user) => user.name)
+    // })
     return await axios
     .get('https://genhive.onrender.com/geoLocation', {
       headers: {
@@ -34,9 +45,13 @@ export const fetchGeoLocation = createAsyncThunk('locations/fetchGeoLocation', a
       }
     })
     .then((response) =>  {
-        console.log(response.data.data);
-        return response.data.data.map((user) => user.name)
-    })
+      return response.data.data.map((location) => ({
+        id: location.id,
+        name: location.name,
+        createdAt: location.createdAt,
+        updatedAt: location.updatedAt,
+      }));
+    });
 })
 
 
@@ -44,15 +59,16 @@ export const geoLocaleSlice = createSlice({
     name: 'geolocation',
     initialState,
     reducers: {
-        setSelectedGeoLocation: (state, action) => {
-           const {id, firstName, lastName, department, division, email, gender, location} = action.payload;
-           state.selectedGeoLocation = {}
-           state.selectedGeoLocation = {
-                ...state.selectedGeoLocation,
-                id, firstName, lastName, department, division, email, gender, location
-           }
-        //    console.log(state.selectedGeoLocation);
-        }
+      setSelectedGeoLocation: (state, action) => {
+        const { id, name, createdAt, updatedAt } = action.payload;
+        state.selectedGeoLocation = {}
+        state.selectedGeoLocation = {
+          id,
+          name,
+          createdAt,
+          updatedAt,
+        };
+      }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGeoLocation.pending, state => {
@@ -60,7 +76,7 @@ export const geoLocaleSlice = createSlice({
         })
         builder.addCase(fetchGeoLocation.fulfilled, (state, action) => {
             state.loading = false
-            state.locationList = [...action.payload]
+            state.locationList = action.payload
             console.log(state.locationList);
             state.error = ''
         })
