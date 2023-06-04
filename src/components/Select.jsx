@@ -4,6 +4,10 @@ import { findInputError } from "../utils/FindInputError";
 import { useFormContext } from "react-hook-form";
 import InputError from "./InputError";
 import { AnimatePresence } from "framer-motion";
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedGeoLocation } from "../app/geoLocation";
+
 
 
 const Select = React.memo(
@@ -12,6 +16,7 @@ const Select = React.memo(
       register,
       formState: { errors },
     } = useFormContext();
+    const dispatch = useDispatch()
     const inputError = findInputError(errors, name);
     const isInvalid = IsFormInvalid(inputError);
     const disabledOption = document.getElementById("disabledOption");
@@ -26,11 +31,25 @@ const Select = React.memo(
     //   }, [value]);
     useEffect(() => {
       setFieldValue(value || "");
-      console.log(value);
+      // console.log(value);
     }, [value]);
-  
+    
+    const geoLocationList = useSelector((state) => state.geolocation.locationList);
     const handleSelectChange = (event) => {
-      setFieldValue(event.target.value);
+      const selectedValue = event.target.value;
+      console.log(selectedValue);
+      if (name === 'geoLocation') {
+        const selectedObject = geoLocationList.find((location) =>
+          location.name === selectedValue
+        );
+        dispatch(setSelectedGeoLocation(selectedObject));
+      }
+      
+      // const selectedOption = options.find((option) =>
+      //   typeof option === "object" ? option.value === selectedValue : option === selectedValue
+      // );
+      // console.log(selectedOption);
+      setFieldValue(selectedValue);
     };
     return (
       <div className="flex flex-col w-full gap-2">
@@ -65,11 +84,17 @@ const Select = React.memo(
           <option value="" id="disabledOption" disabled>
             -- Please Select One --
           </option>
-          {options.map((optionValue) => (
-            <option key={optionValue} value={optionValue}>
-              {optionValue}
-            </option>
-          ))}
+          {options.map((option) =>
+            typeof option === "object" ? (
+              <option key={uuidv4()} value={option.label}>
+                {option.label}
+              </option>
+            ) : (
+              <option key={uuidv4()} value={option}>
+                {option}
+              </option>
+            )
+          )}
         </select>
       </div>
     );
