@@ -7,6 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedGeoLocation } from "../app/geoLocation";
+import { setSelectedDepartment } from "../app/department";
 
 
 
@@ -35,6 +36,7 @@ const Select = React.memo(
     }, [value]);
     
     const geoLocationList = useSelector((state) => state.geolocation.locationList);
+    const departmentList = useSelector((state) => state.department.departmentList);
     const handleSelectChange = (event) => {
       const selectedValue = event.target.value;
       console.log(selectedValue);
@@ -43,6 +45,13 @@ const Select = React.memo(
           location.name === selectedValue
         );
         dispatch(setSelectedGeoLocation(selectedObject));
+      } else if (name === 'department') {
+        const selectedObject = departmentList.find((department) =>
+        console.log(department)
+          // department.name === selectedValue
+        );
+        console.log(selectedObject);
+        dispatch(setSelectedDepartment(selectedObject));
       }
       
       // const selectedOption = options.find((option) =>

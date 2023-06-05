@@ -12,10 +12,10 @@ const initialState = {
 
 export const login = async () => {
     const loginData = {
-      staffId: 1,
-      password: "Chukwu",
+      staffId: 15522,
+      password: "hussein",
       adminPassword: "123",
-      fcmToken: 'cAK4WtO9pZk:APA91bH5ddGFcRExO3lrKv6f_PwS7SK5jNzi92vlbfT9IF5EoZ-qN6zI9sPQWNYG5hI-1dUk-WjZqX7K22cG7Y2C0OZ9r7zv_LiBB3qHZW4k2DQa0aDfMn0OaR8iCmX2aWb4p5p86d1r',
+      // fcmToken: 'cAK4WtO9pZk:APA91bH5ddGFcRExO3lrKv6f_PwS7SK5jNzi92vlbfT9IF5EoZ-qN6zI9sPQWNYG5hI-1dUk-WjZqX7K22cG7Y2C0OZ9r7zv_LiBB3qHZW4k2DQa0aDfMn0OaR8iCmX2aWb4p5p86d1r',
     };
   
     const response = await axios.post('https://genhive.onrender.com/auth/login', loginData, {
@@ -73,14 +73,14 @@ export const staffSlice = createSlice({
     initialState,
     reducers: {
         setSelectedStaff: (state, action) => {
-           const {id, firstName, lastName, middleName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus} = action.payload;
+           const {id, firstName, lastName, middleName, departmentId, email, gender, geoLocationId, workLocationId, dob, phone1, phone2, address, cugLine, nationality, employmentDate, updatedAt, salary, catergory, stateOfOrigin, role, postionId, employmentStatus, maritalStatus, isConfirmed, createdAt, CUGLine, staffId, justification} = action.payload;
            state.selectedStaff = {}
            state.selectedStaff = {
                 ...state.selectedStaff,
                 // id, firstName, lastName, middleName, email, gender, nationality, phone1
-                id, firstName, middleName, lastName, department, email, gender, location, dob, phone1, phone2, address, cugLine, nationality, role, employmentDate, updatedAt, salary, catergory, stateOfOrigin, employmentStatus
+                id, firstName, middleName, lastName, departmentId, email, gender, geoLocationId, workLocationId, dob, phone1, phone2, address, cugLine, nationality, employmentDate, updatedAt, salary, catergory, stateOfOrigin, role, postionId, employmentStatus, maritalStatus, isConfirmed, createdAt, CUGLine, staffId, justification
            }
-          //  console.log(state.selectedStaff);
+           console.log(state.selectedStaff);
         }
     },
     extraReducers: (builder) => {

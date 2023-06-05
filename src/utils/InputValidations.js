@@ -211,3 +211,15 @@ export const employmentDateValidation = {
         },
     },
 };
+
+export const geo_location_validation = {
+    name: 'geoLocation',
+    label: 'geo location',
+    id: 'geo-location',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};

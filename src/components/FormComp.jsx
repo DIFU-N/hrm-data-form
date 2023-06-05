@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../components/Input";
 import {
@@ -13,6 +13,7 @@ import {
   employment_status_validation,
   firstNameValidation,
   gender_validation,
+  geo_location_validation,
   lastNameValidation,
   middleNameValidation,
   nationality_validation,
@@ -42,15 +43,21 @@ const FormComp = () => {
     fontFamily: "Barlow, sans-serif",
   };
   const selectedStaff = useSelector((state) => state.staff.selectedStaff);
+  const selectedGeoLocation = useSelector((state) => state.geolocation.selectedGeoLocation);
+  const selectedDepartment = useSelector((state) => state.department.selectedDepartment);
+  // console.log(selectedGeoLocation);
+  // console.log(selectedStaff);
   const submitForm = ({ data }) => {
-    console.log(data);
-    const { id, firstName, lastName, middleName, departmentName, departmentId, departmentDivisionName, departmentDivisionId, departmentCreatedAt, departmentUpdatedAt, email, gender, dob, phone1, phone2, address, nationality, employmentDate, state, category } = data || {};
-    console.log('this is' +phone1);
+    // console.log(data);
+    const { id, firstName, lastName, middleName, 
+      email, gender, dob, phone1, phone2, address, nationality, employmentDate, state, category, workLocation,
+    } = data || {};
+    // console.log('this is' +phone1);
     const cleanedNumber = (phone1).replace(/^0?\s*|\s*/g, "");
     const phoneNumber = (phone1).startsWith("+234") ? phone1 : "+234" + cleanedNumber;
     const editedNumber = (phoneNumber).replace(/^(\+234)|\s*/g, "");
     editedNumber ? editedNumber : null
-    const textableNumber = null;
+    let textableNumber = null;
     if (editedNumber) {
       return textableNumber = "0" + editedNumber;
     }
@@ -65,7 +72,9 @@ const FormComp = () => {
       middleName: middleName ||  null,
       email: email ||  null,
       gender: gender ||  null,
-      // location: location ||  null,
+      departmentId: selectedDepartment.id || null,
+      geoLocationId: selectedGeoLocation.id || null,
+      // workLocation: workLocation ||  null,
       dob: parsedDob ||  null,
       phone1: textableNumber ||  null,
       phone2: phone2 ||  null,
@@ -75,16 +84,6 @@ const FormComp = () => {
       // employmentDate: employmentDate ||  null,
       state: state ||  null,
       category: category ||  null,
-      department: {
-        name: departmentName,
-        id: departmentId,
-        division: [{
-          name: departmentDivisionName,
-        }],
-        divisionId: [departmentDivisionId],
-        createdAt: departmentCreatedAt,
-        updatedAt: departmentUpdatedAt,
-      } || null,
     };
     console.log('Form data:', updatedData);
     dispatch(updateStaff(updatedData));
@@ -92,6 +91,16 @@ const FormComp = () => {
   
   // const onSubmit = () => methods.handleSubmit(submitForm);
   const deptList = useSelector((state) => state.department.departmentList);
+  // console.log(selectedStaff.department);
+  const geoLocationList = useSelector((state) => state.geolocation.locationList);
+  const transformedGeoLocationList = geoLocationList.map((location) => ({
+    label: location.name,
+    value: location,
+  }));
+  const transformedDepartmentList = deptList.map((location) => ({
+    label: location.name,
+    value: location,
+  }));
   return (
     <div className="w-[400px]">
       <FormProvider {...methods}>
@@ -129,10 +138,17 @@ const FormComp = () => {
             /> */}
             <Select {...gender_validation} value={selectedStaff.gender} />
             <SelectDate {...employmentDateValidation} value={selectedStaff.employmentDate} />
-            {/* <Select {...category_validation} value={selectedStaff.category} /> */}
-            {/* <Select {...employment_status_validation} value={selectedStaff.employmentStatus}/> */}
-            {/* <Select {...department_validation} options={deptList} value={selectedStaff.department} /> */}
-            {/* <Input {...role_validation} value={selectedStaff.role} /> */}
+            <Select {...category_validation} value={selectedStaff.category} />
+            <Select {...employment_status_validation} value={selectedStaff.employmentStatus}/>
+            <Select
+              {...geo_location_validation}
+              options={transformedGeoLocationList}
+              value={selectedStaff.geoLocation}
+            />
+
+
+            <Select {...department_validation} options={transformedDepartmentList} value={selectedStaff.department} />
+            <Input {...role_validation} value={selectedStaff.role} />
             {/* <PhoneInputField
               {...cug_validation}
               control={control}

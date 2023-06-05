@@ -5,7 +5,7 @@ const initialState = {
     loading: false,
     locationList: [],
     error: '',
-    selectedLocation: {}
+    selectedWorkLocation: {}
 }
 
 export const login = async () => {
@@ -24,7 +24,7 @@ export const login = async () => {
     return response.data.data.token;
   }
 
-export const fetchLocation = createAsyncThunk('locations/fetchLocation', async () => {
+export const fetchWorkLocation = createAsyncThunk('locations/fetchWorkLocation', async () => {
     const token = await login();
     return await axios
     .get('https://genhive.onrender.com/location', {
@@ -44,27 +44,27 @@ export const localeSlice = createSlice({
     name: 'location',
     initialState,
     reducers: {
-        setSelectedLocation: (state, action) => {
+        setSelectedWorkLocation: (state, action) => {
            const {id, firstName, lastName, department, division, email, gender, location} = action.payload;
-           state.selectedLocation = {}
-           state.selectedLocation = {
-                ...state.selectedLocation,
+           state.selectedWorkLocation = {}
+           state.selectedWorkLocation = {
+                ...state.selectedWorkLocation,
                 id, firstName, lastName, department, division, email, gender, location
            }
-        //    console.log(state.selectedLocation);
+        //    console.log(state.selectedWorkLocation);
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchLocation.pending, state => {
+        builder.addCase(fetchWorkLocation.pending, state => {
             state.loading = true
         })
-        builder.addCase(fetchLocation.fulfilled, (state, action) => {
+        builder.addCase(fetchWorkLocation.fulfilled, (state, action) => {
             state.loading = false
             state.locationList = [...action.payload]
             console.log(state.locationList);
             state.error = ''
         })
-        builder.addCase(fetchLocation.rejected, (state, action) => {
+        builder.addCase(fetchWorkLocation.rejected, (state, action) => {
             state.loading = false
             state.locationList = []
             console.log(action.error.message);
@@ -74,4 +74,4 @@ export const localeSlice = createSlice({
 });
 
 export default localeSlice.reducer;
-export const {setSelectedLocation} = localeSlice.actions;
+export const {setSelectedWorkLocation} = localeSlice.actions;

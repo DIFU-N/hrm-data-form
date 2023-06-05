@@ -10,8 +10,8 @@ const initialState = {
 
 export const login = async () => {
     const loginData = {
-      staffId: 1,
-      password: "Chukwu",
+      staffId: 15522,
+      password: "hussein",
       adminPassword: "123",
     };
   
@@ -34,8 +34,8 @@ export const fetchDepartment = createAsyncThunk('departments/fetchDepartment', a
       }
     })
     .then((response) =>  {
-        // console.log(response.data.data);
-        return response.data.data.map((user) => user.name)
+        console.log(response.data.data);
+        return response.data.data.map((user) => user)
     })
 })
 
@@ -45,13 +45,13 @@ export const departmentSlice = createSlice({
     initialState,
     reducers: {
         setSelectedDepartment: (state, action) => {
-           const {id, firstName, lastName, department, email, gender, location} = action.payload;
+           const {id, name, createdAt, updatedAt, division, divisonId} = action.payload;
            state.selectedDepartment = {}
            state.selectedDepartment = {
                 ...state.selectedDepartment,
-                id, firstName, lastName, department, email, gender, location
+                id, name, createdAt, updatedAt, division, divisonId
            }
-        //    console.log(state.selectedDepartment);
+           console.log(state.selectedDepartment);
         }
     },
     extraReducers: (builder) => {

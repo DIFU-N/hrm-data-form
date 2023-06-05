@@ -19,7 +19,7 @@ const PhoneInputField = ({ name, label, validation, value, id, type, placeholder
   const [fieldValue, setFieldValue] = useState("");
   useEffect(() => {
     setFieldValue(value || "");
-    console.log(value);
+    // console.log(value);
   }, [value]);
 
   const handleInputChange = (event) => {

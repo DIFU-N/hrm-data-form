@@ -3,12 +3,18 @@ import { fetchStaff } from './app/staff'
 import { useDispatch } from 'react-redux'
 import IntroComp from './pages/IntroComp'
 import { fetchDepartment } from './app/department'
+import { fetchDivision } from './app/division'
+import { fetchWorkLocation } from './app/location'
+import { fetchGeoLocation } from './app/geoLocation'
 
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchStaff());
     dispatch(fetchDepartment());
+    dispatch(fetchDivision());
+    dispatch(fetchWorkLocation());
+    dispatch(fetchGeoLocation());
   }, [])
   return (
     <>
