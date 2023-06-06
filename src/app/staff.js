@@ -72,15 +72,15 @@ export const staffSlice = createSlice({
     name: 'staff',
     initialState,
     reducers: {
-        setSelectedStaff: (state, action) => {
-           const {id, firstName, lastName, middleName, departmentId, email, gender, geoLocationId, workLocationId, dob, phone1, phone2, address, cugLine, nationality, employmentDate, updatedAt, salary, catergory, stateOfOrigin, role, postionId, employmentStatus, maritalStatus, isConfirmed, createdAt, CUGLine, staffId, justification} = action.payload;
-           state.selectedStaff = {}
-           state.selectedStaff = {
-                ...state.selectedStaff,
+        setSelectedStaff: (stateObj, action) => {
+           const {id, firstName, lastName, middleName, department, departmentId, email, gender, geoLocationId, workLocationId, dob, phone1, phone2, address, nationality, employmentDate, updatedAt, salary, category, state, role, positionId, employmentStatus, maritalStatus, isConfirmed, createdAt, CUGLine, staffId, justification, username, picture, probationPeriod, paygrade} = action.payload;
+           stateObj.selectedStaff = {}
+           stateObj.selectedStaff = {
+                ...stateObj.selectedStaff,
                 // id, firstName, lastName, middleName, email, gender, nationality, phone1
-                id, firstName, middleName, lastName, departmentId, email, gender, geoLocationId, workLocationId, dob, phone1, phone2, address, cugLine, nationality, employmentDate, updatedAt, salary, catergory, stateOfOrigin, role, postionId, employmentStatus, maritalStatus, isConfirmed, createdAt, CUGLine, staffId, justification
+                id, firstName, middleName, lastName, department, departmentId, email, gender, geoLocationId, workLocationId, dob, phone1, phone2, address, nationality, employmentDate, updatedAt, salary, category, state, role, positionId, employmentStatus, maritalStatus, isConfirmed, createdAt, CUGLine, staffId, justification, username, picture, probationPeriod, paygrade
            }
-           console.log(state.selectedStaff);
+           console.log(stateObj.selectedStaff);
         }
     },
     extraReducers: (builder) => {
