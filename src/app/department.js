@@ -45,11 +45,11 @@ export const departmentSlice = createSlice({
     initialState,
     reducers: {
         setSelectedDepartment: (state, action) => {
-           const {id, name, createdAt, updatedAt, division, divisonId} = action.payload;
+           const {name, createdAt, updatedAt, division, divisonId} = action.payload;
            state.selectedDepartment = {}
            state.selectedDepartment = {
                 ...state.selectedDepartment,
-                id, name, createdAt, updatedAt, division, divisonId
+                name, createdAt, updatedAt, division, divisonId
            }
            console.log(state.selectedDepartment);
         }
