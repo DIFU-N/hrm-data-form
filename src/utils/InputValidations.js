@@ -188,6 +188,18 @@ export const department_validation = {
     },
 };
 
+export const division_validation = {
+    name: 'division',
+    label: 'division',
+    id: 'division',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
 export const date_validation = {
     name: 'dob',//lol it's taking name instead of label
     label: 'Date Of Birth',
