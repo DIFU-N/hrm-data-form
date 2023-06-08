@@ -35,7 +35,7 @@ export const fetchDivision = createAsyncThunk('divisions/fetchDivision', async (
     })
     .then((response) =>  {
         console.log(response.data.data);
-        return response.data.data.map((user) => user.name)
+        return response.data.data.map((user) => user)
     })
 })
 
@@ -45,13 +45,13 @@ export const divisionSlice = createSlice({
     initialState,
     reducers: {
         setSelectedDivision: (state, action) => {
-           const {id, firstName, lastName, department, division, email, gender, location} = action.payload;
+           const {id, createdAt, updatedAt, departmentId, name} = action.payload;
            state.selectedDivision = {}
            state.selectedDivision = {
                 ...state.selectedDivision,
-                id, firstName, lastName, department, division, email, gender, location
+                id, createdAt, updatedAt, departmentId, name
            }
-        //    console.log(state.selectedDivision);
+           console.log(state.selectedDivision);
         }
     },
     extraReducers: (builder) => {
