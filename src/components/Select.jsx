@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedGeoLocation } from "../app/geoLocation";
 import { setSelectedDepartment } from "../app/department";
+import { setSelectedDivision } from "../app/division";
 
 
 
@@ -37,6 +38,7 @@ const Select = React.memo(
     
     const geoLocationList = useSelector((state) => state.geolocation.locationList);
     const departmentList = useSelector((state) => state.department.departmentList);
+    const divisionList = useSelector((state) => state.division.divisionList);
     const handleSelectChange = (event) => {
       const selectedValue = event.target.value;
       console.log(selectedValue);
@@ -44,14 +46,22 @@ const Select = React.memo(
         const selectedObject = geoLocationList.find((location) =>
           location.name === selectedValue
         );
+        console.log(selectedObject);
         dispatch(setSelectedGeoLocation(selectedObject));
       } else if (name === 'department') {
         const selectedObject = departmentList.find((department) =>
-        console.log(department)
-          // department.name === selectedValue
+        // console.log(department)
+          department.name === selectedValue
         );
         console.log(selectedObject);
         dispatch(setSelectedDepartment(selectedObject));
+      } else if (name === 'division') {
+        const selectedObject = divisionList.find((division) =>
+        // console.log(department)
+          division.name === selectedValue
+        );
+        console.log(selectedObject);
+        dispatch(setSelectedDivision(selectedObject));
       }
       
       // const selectedOption = options.find((option) =>
