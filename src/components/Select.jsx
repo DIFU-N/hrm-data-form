@@ -95,7 +95,7 @@ const Select = React.memo(
         <select
           {...register(name, validation)}
           // onClick={makeDisabled}
-          className="w-full p-5 lg:p-2 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
+          className="w-full p-5 lg:p-2 font-medium capitalize border rounded-md border-slate-300 placeholder:opacity-60"
           value={fieldValue}
           {...rest}
           onChange={handleSelectChange}

@@ -84,21 +84,59 @@ export const nationality_validation = {
 
     },
 };
-
 export const state_validation = {
     name: 'state',
-    label: 'state of origin',
+    label: 'State of Origin',
     type: 'text',
     id: 'state-of-origin',
+    options: [
+        'Abia',
+        'Adamawa',
+        'Akwa Ibom',
+        'Anambra',
+        'Bauchi',
+        'Bayelsa',
+        'Benue',
+        'Borno',
+        'Cross River',
+        'Delta',
+        'Ebonyi',
+        'Edo',
+        'Ekiti',
+        'Enugu',
+        'Federal Capital Territory',
+        'Gombe',
+        'Imo',
+        'Jigawa',
+        'Kaduna',
+        'Kano',
+        'Katsina',
+        'Kebbi',
+        'Kogi',
+        'Kwara',
+        'Lagos',
+        'Nasarawa',
+        'Niger',
+        'Ogun',
+        'Ondo',
+        'Osun',
+        'Oyo',
+        'Plateau',
+        'Rivers',
+        'Sokoto',
+        'Taraba',
+        'Yobe',
+        'Zamfara'
+    ],
     placeholder: 'Cannot leave blank',
     validation: {
         required: {
             value: true,
-            message: 'required',
+            message: 'Required',
         },
-
     },
 };
+
 
 export const role_validation = {
     name: 'role',
@@ -124,9 +162,23 @@ export const cug_validation = {
 
 export const cell_validation = {
     name: 'phone1',
-    label: 'person phone number',
+    label: 'phone number',
     type: 'cell',
     id: 'cell',
+    placeholder: 'Cannot leave blank',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
+export const cell_validation2 = {
+    name: 'phone2',
+    label: 'phone number 2',
+    type: 'cell2',
+    id: 'cell2',
     placeholder: 'Cannot leave blank',
     validation: {
         required: {
@@ -154,6 +206,19 @@ export const category_validation = {
     label: 'category',
     id: 'category',
     options: ['Permanent', 'Contract'],
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
+export const marital_status_validation = {
+    name: 'maritalStatus',
+    label: 'marital status',
+    id: 'marital-status',
+    options: ['single', 'married'],
     validation: {
         required: {
             value: true,
@@ -228,6 +293,19 @@ export const geo_location_validation = {
     name: 'geoLocation',
     label: 'geo location',
     id: 'geo-location',
+    validation: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+    },
+};
+
+
+export const salary_validation = {
+    name: 'salary',
+    label: 'salary',
+    id: 'salary',
     validation: {
         required: {
             value: true,

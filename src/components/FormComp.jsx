@@ -5,6 +5,7 @@ import {
   address_validation,
   category_validation,
   cell_validation,
+  cell_validation2,
   cug_validation,
   date_validation,
   department_validation,
@@ -16,9 +17,11 @@ import {
   gender_validation,
   geo_location_validation,
   lastNameValidation,
+  marital_status_validation,
   middleNameValidation,
   nationality_validation,
   role_validation,
+  salary_validation,
   state_validation,
 } from "../utils/InputValidations";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -53,10 +56,7 @@ const FormComp = () => {
   const selectedDivision = useSelector(
     (state) => state.division.selectedDivision
   );
-  // console.log(selectedGeoLocation);
-  // console.log(selectedStaff);
   const submitForm = ({ data }) => {
-    // console.log(data);
     const {
       id,
       firstName,
@@ -73,6 +73,10 @@ const FormComp = () => {
       state,
       category,
       workLocationId,
+      maritalStatus,
+      // salary,
+      CUGLine
+      // paygrade,
     } = data || {};
     // console.log('this is' +phone1);
     const cleanedNumber = phone1.replace(/^0?\s*|\s*/g, "");
@@ -85,11 +89,19 @@ const FormComp = () => {
     if (editedNumber) {
       return (textableNumber = "0" + editedNumber);
     }
-    // if(phone1 || phone2) {
-    //   return textableNumber;
-    // }
-    //when you get the selectedGEoLocationId
 
+    const cleanedNumber2 = phone2.replace(/^0?\s*|\s*/g, "");
+    const phoneNumber2 = phone2.startsWith("+234")
+      ? phone1
+      : "+234" + cleanedNumber2;
+    const editedNumber2 = phoneNumber2.replace(/^(\+234)|\s*/g, "");
+    editedNumber2 ? editedNumber2 : null;
+    let textableNumber2 = null;
+    if (editedNumber2) {
+      return (textableNumber2 = "0" + editedNumber2);
+    }
+
+    //when you get the selectedGEoLocationId
     const parsedDob = dob ? new Date(dob) : null;
     const updatedData = {
       id: id || null,
@@ -103,13 +115,16 @@ const FormComp = () => {
       workLocationId: workLocationId || null,
       dob: parsedDob || null,
       phone1: textableNumber || null,
-      phone2: phone2 || null,
+      phone2: textableNumber2 || null,
       address: address || null,
       CUGLine: CUGLine || null,
       nationality: nationality || null,
       employmentDate: employmentDate || null,
       state: state || null,
       category: category || null,
+      maritalStatus: maritalStatus || null,
+      // salary: salary || null,
+      // paygrade: paygrade || null,
     };
     console.log("Form data:", updatedData);
     dispatch(updateStaff(updatedData));
@@ -119,7 +134,7 @@ const FormComp = () => {
   const deptList = useSelector((state) => state.department.departmentList);
   const divisionList = useSelector((state) => state.division.divisionList);
   // console.log(divisionList);
-  // console.log(selectedStaff.department);
+  // console.log(selectedStaff.salary);
   const geoLocationList = useSelector(
     (state) => state.geolocation.locationList
     );
@@ -146,7 +161,7 @@ const FormComp = () => {
     selectedDivisionObject = divisionList.find(
       (division) => division.id === selectedStaff?.department?.divisionId[0] 
     );
-    console.log(selectedDivisionObject);
+    // console.log(selectedDivisionObject);
   }
   const transformedGeoLocationList = geoLocationList.map((location) => ({
     label: location.name,
@@ -168,9 +183,6 @@ const FormComp = () => {
   } else {
     transformedDepartmentList = ['you have to choose a division first'];
   }
-
-
-  // : ['you have to choose a division first'];
 
   return (
     <div className="w-[400px]">
@@ -200,29 +212,30 @@ const FormComp = () => {
               {...nationality_validation}
               value={selectedStaff.nationality}
             />
-            <Input {...state_validation} value={selectedStaff.state} />
+            <Select {...state_validation} value={selectedStaff.state} />
             <PhoneInputField
               {...cell_validation}
               control={control}
               value={selectedStaff.phone1}
               validation={validationSchema}
             />
-            {/* <PhoneInputField
-              {...cell_validation}
+            <PhoneInputField
+              {...cell_validation2}
               control={control}
               value={selectedStaff.phone2}
               validation={validationSchema}
-            /> */}
+            />
             <Select {...gender_validation} value={selectedStaff.gender} />
+            <Select {...marital_status_validation} value={selectedStaff.maritalStatus} />
             <SelectDate
               {...employmentDateValidation}
               value={selectedStaff.employmentDate}
             />
             <Select {...category_validation} value={selectedStaff.category} />
-            <Select
+            {/* <Select
               {...employment_status_validation}
               value={selectedStaff.employmentStatus}
-            />
+            /> */}
             <Select
               {...geo_location_validation}
               options={transformedGeoLocationList}
@@ -239,12 +252,16 @@ const FormComp = () => {
               value={selectedDepartmentObject ? selectedDepartmentObject.name : selectedStaff.department }
             />
             <Input {...role_validation} value={selectedStaff.role} />
-            {/* <PhoneInputField
+            <Input
+              {...salary_validation}
+              value={parseFloat(selectedStaff.salary)}
+            />
+            <PhoneInputField
               {...cug_validation}
               control={control}
-              value={selectedStaff.cugLine}
+              value={selectedStaff.CUGLine}
               validation={validationSchema}
-            /> */}
+            />
           </div>
           <div>
             <button
