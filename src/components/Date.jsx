@@ -4,6 +4,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { findInputError } from "../utils/FindInputError";
 import { IsFormInvalid } from "../utils/IsFormInvalid";
 import InputError from "./InputError";
+import { useSelector } from "react-redux";
 
 const SelectDate = ({ label, name, id, validation, value }) => {
   const {
@@ -19,7 +20,12 @@ const SelectDate = ({ label, name, id, validation, value }) => {
       setFormattedDate(date.toISOString().split("T")[0]);
     }
   }, [value]);
-
+  const updated = useSelector((state) => state.staff.updated)
+  useEffect(() => {
+    if (updated) {
+      setFormattedDate("")
+    }
+  }, [updated])
   const handleInputChange = (event) => {
     const selectedDate = event.target.value;
     setFormattedDate(selectedDate);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import FormComp from "../components/FormComp";
-import { setSelectedStaff } from "../app/staff";
+import { setSelectedStaff, setUpdated } from "../app/staff";
 
 const IntroComp = () => {
   const customStyles = {
@@ -108,18 +108,33 @@ const IntroComp = () => {
   const handleSelectChange = (selected) => {
     dispatch(setSelectedStaff(selected))
     console.log(selectedStaff)
+    dispatch(setUpdated(false))
   }
+  const updated = useSelector((state) => state.staff.updated);
+  useEffect(() => {
+    if (updated) {
+      dispatch(setSelectedStaff({
+        value: '',
+        label: '',
+      }))
+    }
+  }, [updated])
   return (
-    <div className="w-full items-center justify-center flex flex-col my-10">
-      <Select
-        options={filteredOptions ? filteredOptions : options}
-        className="w-[400px] rounded-lg px-4 py-2 mb-4"
-        placeholder="Search..."
-        // value={selectedStaff}
-        onChange={handleSelectChange}
-        onInputChange={handleInputChange}
-        styles={customStyles}
-      />
+    <div className="w-full border-2 border-black items-center justify-center flex flex-col my-10">
+      <div className="flex items-center">
+        <span className="mb-2 font-bold text-md">
+          Choose Staff:
+        </span>
+        <Select
+          options={filteredOptions ? filteredOptions : options}
+          className="w-[400px] rounded-lg px-4 py-2 mb-4"
+          placeholder="Search..."
+          // value={selectedStaff}
+          onChange={handleSelectChange}
+          onInputChange={handleInputChange}
+          styles={customStyles}
+        />
+      </div>
       {<FormComp />}  
     </div>
   );

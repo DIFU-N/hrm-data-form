@@ -30,17 +30,22 @@ import SelectDate from "../components/Date";
 import { useDispatch, useSelector } from "react-redux";
 import PhoneInputField from "./PhoneNumber";
 import { validationSchema } from "../utils/ValidationSchema";
-import { updateStaff } from "../app/staff";
+import { setSelectedStaff, updateStaff } from "../app/staff";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+
 
 const FormComp = () => {
   const dispatch = useDispatch();
   // const validationSchema = useSelector((state) => state.validate.validation);
   const formOptions = { resolver: yupResolver(validationSchema) };
   const methods = useForm(formOptions);
-  const { control } = useForm({
+  const { control, reset } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
+  const success = useSelector((state) => state.staff.updated);
   const divStyle1 = {
     // fontFamily: "Anton, sans-serif",
     // fontFamily: 'Bebas Neue, cursive'
@@ -74,9 +79,7 @@ const FormComp = () => {
       category,
       workLocationId,
       maritalStatus,
-      // salary,
       CUGLine
-      // paygrade,
     } = data || {};
     // console.log('this is' +phone1);
     const cleanedNumber = phone1.replace(/^0?\s*|\s*/g, "");
@@ -123,18 +126,22 @@ const FormComp = () => {
       state: state || null,
       category: category || null,
       maritalStatus: maritalStatus || null,
-      // salary: salary || null,
-      // paygrade: paygrade || null,
     };
     console.log("Form data:", updatedData);
-    dispatch(updateStaff(updatedData));
+    dispatch(updateStaff(updatedData))
+    .then(() => {
+      toast.success("Update successful");
+      reset(); // Reset the form values
+    })
+    .catch(() => {
+      toast.error("Update failed"); // Display an error toast message
+    });
   };
 
-  // const onSubmit = () => methods.handleSubmit(submitForm);
+  
+
   const deptList = useSelector((state) => state.department.departmentList);
   const divisionList = useSelector((state) => state.division.divisionList);
-  // console.log(divisionList);
-  // console.log(selectedStaff.salary);
   const geoLocationList = useSelector(
     (state) => state.geolocation.locationList
     );
@@ -184,8 +191,15 @@ const FormComp = () => {
     transformedDepartmentList = ['you have to choose a division first'];
   }
 
+  useEffect(() => {
+    if (success) {
+      reset();
+      dispatch(setSelectedStaff({}))
+    }
+  }, [success]);
   return (
-    <div className="w-[400px]">
+    <div className="w-[800px]">
+      <span className="font-bold text-lg">NB: Please kindly modify any necessary elements while retaining the overall content.</span>
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit((data) => submitForm({ data }))}
@@ -195,7 +209,7 @@ const FormComp = () => {
         >
           <div
             style={divStyle1}
-            className="rounded-md flex flex-col gap-y-5 lg:gap-y-2 shadow-sm -space-y-px"
+            className="rounded-md flex mt-5 flex-col gap-y-5 lg:gap-y-2 shadow-sm -space-y-px"
           >
             <div className="flex gap-3">
               <Input {...firstNameValidation} value={selectedStaff.firstName} />
@@ -250,12 +264,7 @@ const FormComp = () => {
               {...department_validation}
               options={transformedDepartmentList}
               value={selectedDepartmentObject ? selectedDepartmentObject.name : selectedStaff.department }
-            />
-            <Input {...role_validation} value={selectedStaff.role} />
-            <Input
-              {...salary_validation}
-              value={parseFloat(selectedStaff.salary)}
-            />
+            /> 
             <PhoneInputField
               {...cug_validation}
               control={control}
@@ -263,7 +272,7 @@ const FormComp = () => {
               validation={validationSchema}
             />
           </div>
-          <div>
+          <div className="w-52 mt-10">
             <button
               type="submit"
               // onClick={onSubmit}

@@ -8,6 +8,7 @@ const initialState = {
     staffDetails: [],
     error: '',
     selectedStaff: {},
+    updated: false,
 }
 
 export const login = async () => {
@@ -60,9 +61,13 @@ export const updateStaff = createAsyncThunk('staff/updateStaff', async (data, th
     })
     .then(response => {
       console.log('Update successful:', response);
+      thunkAPI.dispatch(staffSlice.actions.setUpdated(true));
+      console.log(state.staff.updated);
+      // return true; // Return the response data indicating success
     })
     .catch(error => {
       console.error('Update failed:', error);
+      throw error; // Throw the error to indicate failure
     });
 })
 
@@ -81,7 +86,10 @@ export const staffSlice = createSlice({
                 id, firstName, middleName, lastName, departmentId, email, gender, geoLocationId, workLocationId, dob, phone1, phone2, address, nationality, employmentDate, category, state, positionId, maritalStatus, isConfirmed, CUGLine, staffId
            }
            console.log(stateObj.selectedStaff);
-        }
+        },
+        setUpdated: (state, action) => {
+          state.updated = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchStaff.pending, state => {
@@ -99,8 +107,20 @@ export const staffSlice = createSlice({
             console.log(action.error.message);
             state.error = action.error.message
         })
+        // builder.addCase(updateStaff.pending, (state) => {
+        //   state.loading = true;
+        //   state.error = '';
+        //   state.updated = false; // Reset 'updated' to false before update
+        // });
+        // builder.addCase(updateStaff.fulfilled, (state) => {
+        //   state.loading = false;
+        // });
+        // builder.addCase(updateStaff.rejected, (state, action) => {
+        //   state.loading = false;
+        //   state.error = action.error.message;
+        // });
     }
 });
 
 export default staffSlice.reducer;
-export const {setSelectedStaff} = staffSlice.actions;
+export const {setSelectedStaff, setUpdated} = staffSlice.actions;

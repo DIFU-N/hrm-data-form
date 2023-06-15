@@ -6,6 +6,7 @@ import { fetchDepartment } from './app/department'
 import { fetchDivision } from './app/division'
 import { fetchWorkLocation } from './app/location'
 import { fetchGeoLocation } from './app/geoLocation'
+import { memo } from 'react'
 
 function App() {
   const dispatch = useDispatch()
@@ -28,4 +29,4 @@ function App() {
   )
 }
 
-export default App
+export default memo(App)
