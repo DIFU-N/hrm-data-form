@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import FormComp from "../components/FormComp";
-import { setSelectedStaff, setUpdated } from "../app/staff";
+import { fetchStaff, setSelectedStaff, setUpdated } from "../app/staff";
+import Loader from "../components/swirl/Loader";
 
 const IntroComp = () => {
   const customStyles = {
@@ -93,17 +94,17 @@ const IntroComp = () => {
     picture: person.picture,
     probationPeriod: person.probationPeriod,
   }));
-  const [inputValue, setInputValue] = useState("");
 
   const [filteredOptions, setFilteredOptions] = useState(null);
 
   const handleInputChange = (input) => {
-    setInputValue(input);
     const filtered = options.filter((option) =>
       option.label.toLowerCase().startsWith(input.toLowerCase())
     );
     setFilteredOptions(filtered);
   };
+  const isLoading = useSelector((state) => state.staff.loading)
+  console.log(isLoading);
   const selectedStaff = useSelector((state) => state.staff.selectedStaff)
   const handleSelectChange = (selected) => {
     dispatch(setSelectedStaff(selected))
@@ -113,29 +114,39 @@ const IntroComp = () => {
   const updated = useSelector((state) => state.staff.updated);
   useEffect(() => {
     if (updated) {
+      dispatch(fetchStaff());
       dispatch(setSelectedStaff({
         value: '',
         label: '',
       }))
     }
-  }, [updated])
+  }, [updated, dispatch])
   return (
-    <div className="w-full border-2 border-black items-center justify-center flex flex-col my-10">
-      <div className="flex items-center">
-        <span className="mb-2 font-bold text-md">
-          Choose Staff:
-        </span>
-        <Select
-          options={filteredOptions ? filteredOptions : options}
-          className="w-[400px] rounded-lg px-4 py-2 mb-4"
-          placeholder="Search..."
-          // value={selectedStaff}
-          onChange={handleSelectChange}
-          onInputChange={handleInputChange}
-          styles={customStyles}
-        />
-      </div>
-      {<FormComp />}  
+    <div >
+      {isLoading ? (
+        <div className="flex bg-black justify-center items-center h-screen">
+          {/* <Swirl /> */}
+          <Loader />
+        </div>
+      ) : (
+        <div className="w-full border-2 border-black items-center justify-center flex flex-col my-10">
+          <div className="flex items-center">
+            <span className="mb-2 font-bold text-md">
+              Choose Staff:
+            </span>
+            <Select
+              options={filteredOptions ? filteredOptions : options}
+              className="w-[400px] rounded-lg px-4 py-2 mb-4"
+              placeholder="Search..."
+              // value={selectedStaff}
+              onChange={handleSelectChange}
+              onInputChange={handleInputChange}
+              styles={customStyles}
+            />
+          </div>
+          {<FormComp />}  
+        </div>
+      )}
     </div>
   );
 };

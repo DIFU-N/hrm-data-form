@@ -70,12 +70,12 @@ const Select = React.memo(
       // console.log(selectedOption);
       setFieldValue(selectedValue);
     };
-    // const updated = useSelector((state) => state.staff.updated)
-    // useEffect(() => {
-    //   if (updated) {
-    //     setFieldValue("")
-    //   }
-    // }, [updated])
+    const updated = useSelector((state) => state.staff.updated)
+    useEffect(() => {
+      if (updated) {
+        setFieldValue("")
+      }
+    }, [updated])
     return (
       <div className="flex flex-col w-full gap-2">
         <div className="flex justify-between">

@@ -1,10 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 const initialState = {
-    loading: false,
+    loading: true,
     staffDetails: [],
     error: '',
     selectedStaff: {},
@@ -107,18 +105,18 @@ export const staffSlice = createSlice({
             console.log(action.error.message);
             state.error = action.error.message
         })
-        // builder.addCase(updateStaff.pending, (state) => {
-        //   state.loading = true;
-        //   state.error = '';
-        //   state.updated = false; // Reset 'updated' to false before update
-        // });
-        // builder.addCase(updateStaff.fulfilled, (state) => {
-        //   state.loading = false;
-        // });
-        // builder.addCase(updateStaff.rejected, (state, action) => {
-        //   state.loading = false;
-        //   state.error = action.error.message;
-        // });
+        builder.addCase(updateStaff.pending, (state) => {
+          state.loading = true;
+          state.error = '';
+          state.updated = false; // Reset 'updated' to false before update
+        });
+        builder.addCase(updateStaff.fulfilled, (state) => {
+          state.loading = false;
+        });
+        builder.addCase(updateStaff.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        });
     }
 });
 
